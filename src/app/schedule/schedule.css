@@ -1,0 +1,520 @@
+.schedule-container {
+  width: 95%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 0;
+  box-sizing: border-box;
+}
+
+.schedule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.header-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 5px 0;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 8px;
+  background: #f5f5f5;
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.view-toggle button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #666;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-toggle button.active {
+  background: white;
+  color: #2777e2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.view-toggle button svg {
+  stroke: currentColor;
+}
+
+/* Week View */
+.week-view {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  top: 60px;
+  width: 80px;
+  padding: 10px;
+  background: #fafafa;
+  border-right: 2px solid #e0e0e0;
+}
+
+.time-marker {
+  height: 80px;
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  margin-left: 80px;
+}
+
+.day-column {
+  border-right: 1px solid #e0e0e0;
+  min-height: 600px;
+}
+
+.day-column:last-child {
+  border-right: none;
+}
+
+.day-header {
+  padding: 20px;
+  text-align: center;
+  background: #fafafa;
+  border-bottom: 2px solid #e0e0e0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.day-header.today {
+  background: linear-gradient(135deg, #2777e2 0%, #1d5bb6 100%);
+}
+
+.day-header.today .day-name,
+.day-header.today .day-date {
+  color: white;
+}
+
+.day-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  display: block;
+}
+
+.day-date {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 600;
+  margin-top: 4px;
+  display: block;
+}
+
+.day-schedule {
+  position: relative;
+  height: 560px;
+  background: 
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 79px,
+      #f0f0f0 79px,
+      #f0f0f0 80px
+    );
+}
+
+.schedule-item {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.schedule-item:hover {
+  transform: translateX(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 5;
+}
+
+.course-cours {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 4px solid #2196f3;
+}
+
+.course-tp {
+  background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+  border-left: 4px solid #9c27b0;
+}
+
+.course-td {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-left: 4px solid #ff9800;
+}
+
+.course-projet {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-left: 4px solid #4caf50;
+}
+
+.item-content {
+  display: flex;
+  gap: 8px;
+  height: 100%;
+}
+
+.course-icon {
+  flex-shrink: 0;
+}
+
+.course-icon svg {
+  stroke: #666;
+}
+
+.course-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.course-info h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.course-info .time {
+  font-size: 0.8rem;
+  color: #666;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.course-info .location {
+  font-size: 0.75rem;
+  color: #999;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.empty-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #ccc;
+}
+
+.empty-day svg {
+  margin-bottom: 10px;
+}
+
+.empty-day p {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* List View */
+.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.schedule-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.schedule-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card-left {
+  padding: 24px;
+  background: #fafafa;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 180px;
+  border-left: 4px solid transparent;
+}
+
+.border-cours {
+  border-left-color: #2196f3;
+}
+
+.border-tp {
+  border-left-color: #9c27b0;
+}
+
+.border-td {
+  border-left-color: #ff9800;
+}
+
+.border-projet {
+  border-left-color: #4caf50;
+}
+
+.day-badge {
+  display: inline-block;
+}
+
+.day-badge .day-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.time-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  font-weight: 600;
+}
+
+.card-right {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+}
+
+.course-header h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.course-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.badge-cours {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.badge-tp {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.badge-td {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.badge-projet {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.course-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.detail-item svg {
+  stroke: #999;
+  flex-shrink: 0;
+}
+
+.details-btn {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  background: white;
+  color: #2777e2;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.details-btn:hover {
+  border-color: #2777e2;
+  background: #f0f7ff;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.empty-state svg {
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.empty-state h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.empty-state p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .days-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 968px) {
+  .schedule-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .view-toggle {
+    width: 100%;
+  }
+
+  .view-toggle button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .days-grid {
+    grid-template-columns: repeat(2, 1fr);
+    margin-left: 0;
+  }
+
+  .timeline {
+    display: none;
+  }
+
+  .schedule-card {
+    flex-direction: column;
+  }
+
+  .card-left {
+    min-width: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    border-left: none;
+    border-top: 4px solid transparent;
+  }
+}
+
+@media (max-width: 500px) {
+  .schedule-container {
+    width: 98%;
+    padding: 20px 0;
+  }
+
+  .header-content h2 {
+    font-size: 1.75rem;
+  }
+
+  .days-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .day-schedule {
+    height: auto;
+    min-height: 200px;
+  }
+
+  .schedule-item {
+    position: static;
+    margin-bottom: 8px;
+  }
+
+  .card-left {
+    padding: 16px;
+  }
+
+  .card-right {
+    padding: 16px;
+  }
+
+  .course-header {
+    flex-direction: column;
+  }
+
+  .details-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

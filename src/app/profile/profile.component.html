@@ -1,0 +1,165 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h2>Mon Profil</h2>
+    <p class="subtitle">Gérez vos informations personnelles</p>
+  </div>
+
+  <div class="profile-layout">
+    <!-- Avatar Section -->
+    <div class="avatar-section">
+      <div class="avatar-wrapper">
+        <div class="avatar">
+          <span class="initials">{{ getInitials() }}</span>
+        </div>
+        <button class="avatar-edit-btn" (click)="changeAvatar()" title="Changer la photo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+          </svg>
+        </button>
+      </div>
+      <h3 class="user-name">{{ user.name }}</h3>
+      <span class="role-badge" [class.admin]="user.role === 'Admin'" [class.instructor]="user.role === 'Instructeur'">
+        {{ user.role }}
+      </span>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+      <div class="profile-card">
+        <div class="card-header">
+          <h3>Informations Personnelles</h3>
+          <button class="edit-mode-btn" (click)="toggleEditMode()" [class.active]="isEditMode">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            {{ isEditMode ? 'Annuler' : 'Modifier' }}
+          </button>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <label>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+              Nom complet
+            </label>
+            <input 
+              *ngIf="isEditMode" 
+              type="text" 
+              [(ngModel)]="editedUser.name"
+              class="input-field"
+            >
+            <p *ngIf="!isEditMode">{{ user.name }}</p>
+          </div>
+
+          <div class="info-item">
+            <label>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              Adresse email
+            </label>
+            <input 
+              *ngIf="isEditMode" 
+              type="email" 
+              [(ngModel)]="editedUser.email"
+              class="input-field"
+            >
+            <p *ngIf="!isEditMode">{{ user.email }}</p>
+          </div>
+
+          <div class="info-item">
+            <label>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+              Rôle
+            </label>
+            <select 
+              *ngIf="isEditMode" 
+              [(ngModel)]="editedUser.role"
+              class="input-field"
+            >
+              <option value="Étudiant">Étudiant</option>
+              <option value="Instructeur">Instructeur</option>
+              <option value="Admin">Admin</option>
+            </select>
+            <p *ngIf="!isEditMode">{{ user.role }}</p>
+          </div>
+
+          <div class="info-item">
+            <label>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 2v4M16 2v4M3 10h18"/>
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+              </svg>
+              Membre depuis
+            </label>
+            <p>{{ memberSince }}</p>
+          </div>
+        </div>
+
+        <div class="actions" *ngIf="isEditMode">
+          <button class="btn-secondary" (click)="cancelEdit()">
+            Annuler
+          </button>
+          <button class="btn-primary" (click)="saveProfile()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            Enregistrer
+          </button>
+        </div>
+      </div>
+
+      <!-- Additional Info Card -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <div class="stat-info">
+            <h4>12</h4>
+            <p>Cours suivis</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <div class="stat-info">
+            <h4>8</h4>
+            <p>Cours complétés</p>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+          <div class="stat-info">
+            <h4>45</h4>
+            <p>Points obtenus</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div class="success-message" *ngIf="showSuccessMessage">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+    Profil mis à jour avec succès !
+  </div>
+</div>
