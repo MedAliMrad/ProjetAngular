@@ -31,7 +31,7 @@ export class ScheduleComponent {
       course: 'Mathématiques Avancées',
       type: 'cours',
       duration: 2,
-      instructor: 'Dr. Martin Dubois',
+      instructor: 'Dr. Hamda',
       location: 'Amphi A'
     },
     { 
@@ -40,7 +40,7 @@ export class ScheduleComponent {
       course: 'Algorithmique',
       type: 'tp',
       duration: 2,
-      instructor: 'Prof. Sophie Laurent',
+      instructor: 'Prof. Barouni',
       location: 'Salle Info 2'
     },
     { 
@@ -49,7 +49,7 @@ export class ScheduleComponent {
       course: 'Physique Quantique',
       type: 'cours',
       duration: 2,
-      instructor: 'Dr. Jean Dupont',
+      instructor: 'Dr. Manai',
       location: 'Amphi B'
     },
     { 
@@ -58,7 +58,7 @@ export class ScheduleComponent {
       course: 'Base de Données',
       type: 'td',
       duration: 2,
-      instructor: 'Prof. Marie Chen',
+      instructor: 'Prof. Donies',
       location: 'Salle 301'
     },
     { 
@@ -67,7 +67,7 @@ export class ScheduleComponent {
       course: 'Projet Web',
       type: 'projet',
       duration: 3,
-      instructor: 'Prof. Lucas Bernard',
+      instructor: 'Prof. Mrad',
       location: 'Lab 4'
     },
     { 
@@ -76,7 +76,7 @@ export class ScheduleComponent {
       course: 'Machine Learning',
       type: 'cours',
       duration: 2,
-      instructor: 'Dr. Emma Wilson',
+      instructor: 'Dr. Gasmi',
       location: 'Amphi C'
     },
     { 
@@ -85,7 +85,7 @@ export class ScheduleComponent {
       course: 'Architecture Logicielle',
       type: 'cours',
       duration: 2,
-      instructor: 'Prof. Thomas Petit',
+      instructor: 'Prof. Daoula',
       location: 'Amphi A'
     }
   ];
@@ -120,6 +120,5 @@ export class ScheduleComponent {
 
   openCourseDetails(item: ScheduleItem): void {
     console.log('Opening details for:', item);
-    // Navigate to course details or open modal
   }
 }

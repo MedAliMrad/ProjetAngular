@@ -5,11 +5,11 @@
   left: 0;
   width: 100%;
   height: 60px;
-  background: #1d5bb6;   /* SAME as sidebar gradient */
+  background: #019dcb; 
   color: white;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* <-- add this */
+  justify-content: space-between;
   z-index: 1000;
 }
 
@@ -22,6 +22,21 @@
   transition: opacity var(--transition-speed);
  margin-left: 10px;    
 
+}
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+.navbar .logo a:hover {
+  opacity: 0.9;
+}
+
+.navbar .logo img {
+  width: 85px;      
+  height: 85px;
+  object-fit: contain;
+  padding-left: 30px;
 }
 
 .navbar .logo a:hover {
