@@ -25,7 +25,6 @@ interface Activity {
   type: 'course' | 'certificate' | 'assignment';
   title: string;
   date: string;
-  icon: string;
 }
 
 @Component({
@@ -42,7 +41,7 @@ export class StudentDashboardComponent implements OnInit {
     { 
       label: 'Cours suivis', 
       value: 5, 
-      icon: '📚',
+      icon: 'assets/cours.png',
       color: '#667eea',
       change: '+2 ce mois'
     },
@@ -74,25 +73,25 @@ export class StudentDashboardComponent implements OnInit {
     {
       id: 1,
       title: 'Développement Web Moderne',
-      progress: 75,
-      instructor: 'Jean Dupont',
-      thumbnail: '🌐',
+      progress: 45,
+      instructor: 'Mohamed Ali Mrad',
+      thumbnail: 'assets/web.png',
       nextLesson: 'React Hooks'
     },
     {
       id: 2,
       title: 'Intelligence Artificielle',
-      progress: 45,
-      instructor: 'Sophie Martin',
-      thumbnail: '🤖',
+      progress: 60,
+      instructor: 'Yassine Daoula',
+      thumbnail: 'assets/ai.png',
       nextLesson: 'Réseaux de neurones'
     },
-    {
+    { 
       id: 3,
       title: 'Design UI/UX',
       progress: 90,
-      instructor: 'Pierre Laurent',
-      thumbnail: '🎨',
+      instructor: 'Moenes Gasmi',
+      thumbnail: 'assets/uiux.png',
       nextLesson: 'Prototypage Figma'
     }
   ];
@@ -103,21 +102,18 @@ export class StudentDashboardComponent implements OnInit {
       type: 'course',
       title: 'Nouveau cours complété: JavaScript Avancé',
       date: 'Il y a 2 heures',
-      icon: '✅'
     },
     {
       id: 2,
       type: 'certificate',
       title: 'Certificat obtenu: Développement Frontend',
       date: 'Hier',
-      icon: '🎓'
     },
     {
       id: 3,
       type: 'assignment',
       title: 'Devoir soumis: Projet React',
       date: 'Il y a 3 jours',
-      icon: '📝'
     }
   ];
 

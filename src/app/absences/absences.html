@@ -1,1 +1,195 @@
-<p>absences works!</p>
+<div class="absences-container">
+  <div class="header">
+    <div class="header-content">
+      <h2>Gestion des Absences</h2>
+      <p class="subtitle">Suivi de votre assiduité</p>
+    </div>
+    <div class="header-actions">
+      <button class="filter-btn" (click)="toggleFilter()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+        </svg>
+        Filtrer
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-icon present-bg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <h3>{{ getPresenceCount() }}</h3>
+        <p>Présences</p>
+        <span class="stat-percentage">{{ getPresencePercentage() }}%</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon absent-bg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <h3>{{ getAbsenceCount() }}</h3>
+        <p>Absences</p>
+        <span class="stat-percentage warning">{{ getAbsencePercentage() }}%</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon justified-bg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+          <polyline points="10 9 9 9 8 9"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <h3>{{ getJustifiedCount() }}</h3>
+        <p>Justifiées</p>
+        <span class="stat-percentage">{{ getJustifiedPercentage() }}%</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon total-bg">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+      </div>
+      <div class="stat-info">
+        <h3>{{ getTotalSessions() }}</h3>
+        <p>Séances totales</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Panel -->
+  <div class="filter-panel" *ngIf="showFilter">
+    <div class="filter-content">
+      <div class="filter-group">
+        <label>Statut</label>
+        <select [(ngModel)]="filterStatus" (change)="applyFilter()">
+          <option value="all">Tous</option>
+          <option value="Présent">Présent</option>
+          <option value="Absent">Absent</option>
+          <option value="Justifié">Justifié</option>
+          <option value="Retard">Retard</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Cours</label>
+        <select [(ngModel)]="filterCourse" (change)="applyFilter()">
+          <option value="all">Tous les cours</option>
+          <option *ngFor="let course of getUniqueCourses()" [value]="course">{{ course }}</option>
+        </select>
+      </div>
+      <button class="reset-btn" (click)="resetFilter()">Réinitialiser</button>
+    </div>
+  </div>
+
+  <!-- Absences List -->
+  <div class="absences-list">
+    <div class="absence-card" *ngFor="let absence of getFilteredAbsences()">
+      <div class="card-header">
+        <div class="course-info">
+          <div class="course-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
+          </div>
+          <div>
+            <h3>{{ absence.course }}</h3>
+            <p class="date">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+              {{ formatDate(absence.date) }}
+            </p>
+          </div>
+        </div>
+        <span class="status-badge" [ngClass]="getStatusClass(absence.status)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" *ngIf="absence.status === 'Présent'"/>
+            <polyline points="20 6 9 17 4 12" *ngIf="absence.status === 'Présent'"/>
+            <line x1="18" y1="6" x2="6" y2="18" *ngIf="absence.status === 'Absent'"/>
+            <line x1="6" y1="6" x2="18" y2="18" *ngIf="absence.status === 'Absent'"/>
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" *ngIf="absence.status === 'Justifié'"/>
+            <circle cx="12" cy="12" r="10" *ngIf="absence.status === 'Retard'"/>
+            <polyline points="12 6 12 12 16 14" *ngIf="absence.status === 'Retard'"/>
+          </svg>
+          {{ absence.status }}
+        </span>
+      </div>
+
+      <div class="card-details" *ngIf="absence.instructor || absence.reason">
+        <div class="detail-item" *ngIf="absence.instructor">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span>{{ absence.instructor }}</span>
+        </div>
+        <div class="detail-item reason" *ngIf="absence.reason">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="16" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12.01" y2="8"/>
+          </svg>
+          <span>{{ absence.reason }}</span>
+        </div>
+      </div>
+
+      <div class="card-actions" *ngIf="absence.status === 'Absent' && !absence.justified">
+        <button class="justify-btn" (click)="justifyAbsence(absence)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+          </svg>
+          Justifier l'absence
+        </button>
+      </div>
+
+      <div class="justified-badge" *ngIf="absence.status === 'Justifié'">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        Absence justifiée
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="getFilteredAbsences().length === 0">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+      <h3>Aucune absence enregistrée</h3>
+      <p>{{ filterStatus !== 'all' || filterCourse !== 'all' ? 'Aucun résultat pour ces filtres' : 'Votre assiduité est parfaite !' }}</p>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-section">
+    <h3>Taux de présence</h3>
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="getPresencePercentage()">
+        <span class="progress-text">{{ getPresencePercentage() }}%</span>
+      </div>
+    </div>
+    <p class="progress-label">
+      {{ getPresenceCount() }} présences sur {{ getTotalSessions() }} séances
+    </p>
+  </div>
+</div>

@@ -52,9 +52,6 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.btn-icon {
-  font-size: 18px;
-}
 
 /* Stats Grid */
 .stats-grid {
@@ -179,15 +176,23 @@
 }
 
 .course-thumbnail {
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%);
-  border-radius: 12px;
+  border-radius: 50%; /* keeps it circular */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
+
+.course-thumbnail img {
+  width: 70%;  /* or 75% if you want the icon to fill more */
+  height: 70%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
 
 .course-emoji {
   font-size: 40px;
@@ -370,6 +375,12 @@
 .action-icon {
   font-size: 20px;
 }
+.action-icon img {
+  width: 16px;  /* small size */
+  height: 16px;
+  object-fit: contain;
+}
+
 
 /* Responsive Design */
 @media (max-width: 1200px) {

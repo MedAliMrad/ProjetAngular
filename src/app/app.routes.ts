@@ -7,6 +7,7 @@ import { CoursesListComponent } from './courses-list/courses-list.component';
 import { ProfileComponent } from './profile/profile.component';
 import {ScheduleComponent} from './schedule/schedule'
 import { StatisticsComponent } from './statistics/statistics.component';
+import { AbsencesComponent } from './absences/absences';
 
 export const AppRoutes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,6 +18,10 @@ export const AppRoutes: Routes = [
   { path: 'courses', component: CoursesListComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'emploi', component: ScheduleComponent },
+  { path: 'absence', component: AbsencesComponent },
+    { path: 'stat', component: StatisticsComponent },
+
+
 
   // Wildcard
   // { path: '**', redirectTo: '/login' }
