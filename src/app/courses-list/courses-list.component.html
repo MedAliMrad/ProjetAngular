@@ -1,5 +1,4 @@
-// courses-list.component.html
-<div class="course-list-container">
+  <div class="course-list-container">
   <div class="header">
     <h2>Découvrez nos Cours</h2>
     <p class="subtitle">Trouvez la formation parfaite pour vous</p>
@@ -36,12 +35,6 @@
           <p class="description">{{ course.description }}</p>
         </div>
 
-        <button class="btn-primary" (click)="openCourse(course.id)">
-          <span>Voir le cours</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </button>
       </div>
     </div>
   </div>

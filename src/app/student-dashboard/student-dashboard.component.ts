@@ -1,12 +1,3 @@
-// import { Component } from '@angular/core';
-
-// @Component({
-//   selector: 'app-student-dashboard',
-//   templateUrl: './student-dashboard.component.html',
-//   styleUrls: ['./student-dashboard.component.css']
-// })
-// export class StudentDashboardComponent {}
-// student-dashboard.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -118,7 +109,6 @@ export class StudentDashboardComponent implements OnInit {
   ];
 
   ngOnInit() {
-    // Initialize component
   }
 
   getProgressColor(progress: number): string {

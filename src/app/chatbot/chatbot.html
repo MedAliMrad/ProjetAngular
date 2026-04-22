@@ -1,0 +1,48 @@
+<div class="chatbot-container">
+  <!-- Toggle Button -->
+  <button 
+    class="chat-toggle-btn" 
+    (click)="toggleChat()"
+    [class.active]="isOpen"
+  >
+    <span *ngIf="!isOpen">💬</span>
+    <span *ngIf="isOpen">✕</span>
+  </button>
+
+  <!-- Chat Window -->
+  <div class="chatbot" *ngIf="isOpen">
+    <div class="header">
+      <span> RoutiNet Assistant</span>
+      <button class="close-btn" (click)="toggleChat()">✕</button>
+    </div>
+
+    <div class="messages">
+      <div
+        *ngFor="let msg of messages"
+        [class.user]="msg.sender === 'user'"
+        [class.bot]="msg.sender === 'bot'"
+        class="message"
+      >
+        {{ msg.text }}
+      </div>
+      
+      <!-- Typing indicator -->
+      <div class="message bot typing-indicator" *ngIf="isTyping">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input
+        [(ngModel)]="userInput"
+        placeholder="Type a message..."
+        (keydown.enter)="sendMessage()"
+      />
+      <button (click)="sendMessage()">
+        <span>Send</span>
+      </button>
+    </div>
+  </div>
+</div>
