@@ -1,6 +1,7 @@
-<app-login *ngIf="!isLoggedIn"></app-login>
+<!-- Login non obligatoire: composant login masque -->
+<!-- <app-login *ngIf="!isLoggedIn"></app-login> -->
 
-<div *ngIf="isLoggedIn">
+<div>
   <app-navbar></app-navbar>
   <app-sidebar></app-sidebar>
   <div class="main-content">

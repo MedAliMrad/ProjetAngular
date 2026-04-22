@@ -9,7 +9,9 @@ import {ScheduleComponent} from './schedule/schedule'
 import { AbsencesComponent } from './absences/absences';
 
 export const AppRoutes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  // Login non requis a l'entree: on desactive la redirection vers /login.
+  // { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/student/dashboard', pathMatch: 'full' },
 
   // Utilisateur
   { path: 'register', component: RegisterComponent },
